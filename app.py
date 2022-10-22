@@ -11,10 +11,13 @@ def index():
         if request.form["input_text"] == "":
             return render_template("index.html")
         else:
-            sp.var('x')
-            text = sp.solve(request.form["input_text"], x)
-            print(text)
-            return render_template('index.html', kai=text, siki=f'{request.form["input_text"]}の解')
+            try:
+                sp.var('x')
+                text = sp.solve(request.form["input_text"], x)
+                print(text)
+                return render_template('index.html', kai=text, siki=f'{request.form["input_text"]}の解')
+            except:
+                return render_template("index.html", siki=f'入力された式 {request.form["input_text"]}', kai="入力された式を正しく処理できませんでした")
 
 if __name__ == "__main__":
     app.run(debug=True)
